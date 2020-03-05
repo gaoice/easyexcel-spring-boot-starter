@@ -19,6 +19,16 @@
 
 
 
+`releases`
+
+[easyexcel](https://github.com/gaoice/easyexcel/releases)
+
+[easyexcel-spring-boot-starter](https://github.com/gaoice/easyexcel-spring-boot-starter/releases)
+
+在项目中添加以上两个 jar 包。
+
+
+
 ## 配置
 
 ```properties
