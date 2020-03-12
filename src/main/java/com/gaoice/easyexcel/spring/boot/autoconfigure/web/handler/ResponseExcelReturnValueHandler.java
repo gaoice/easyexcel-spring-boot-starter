@@ -8,7 +8,6 @@ import com.gaoice.easyexcel.style.SheetStyle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.MethodParameter;
-import org.springframework.lang.Nullable;
 import org.springframework.util.Assert;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodReturnValueHandler;
@@ -29,7 +28,7 @@ public class ResponseExcelReturnValueHandler implements HandlerMethodReturnValue
         return methodParameter.getMethodAnnotation(ResponseExcel.class) != null;
     }
 
-    public void handleReturnValue(@Nullable Object o, MethodParameter methodParameter, ModelAndViewContainer mavContainer, NativeWebRequest nativeWebRequest) throws Exception {
+    public void handleReturnValue(Object o, MethodParameter methodParameter, ModelAndViewContainer mavContainer, NativeWebRequest nativeWebRequest) throws Exception {
         /* check */
         HttpServletResponse response = (HttpServletResponse) nativeWebRequest.getNativeResponse(HttpServletResponse.class);
         Assert.state(response != null, "No HttpServletResponse");

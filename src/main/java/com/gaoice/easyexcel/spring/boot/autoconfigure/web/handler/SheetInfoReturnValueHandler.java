@@ -5,7 +5,6 @@ import com.gaoice.easyexcel.SheetInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.MethodParameter;
-import org.springframework.lang.Nullable;
 import org.springframework.util.Assert;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodReturnValueHandler;
@@ -28,7 +27,7 @@ public class SheetInfoReturnValueHandler implements HandlerMethodReturnValueHand
                 && SheetInfo.class.equals(m.getReturnType());
     }
 
-    public void handleReturnValue(@Nullable Object o, MethodParameter methodParameter, ModelAndViewContainer mavContainer, NativeWebRequest nativeWebRequest) throws Exception {
+    public void handleReturnValue(Object o, MethodParameter methodParameter, ModelAndViewContainer mavContainer, NativeWebRequest nativeWebRequest) throws Exception {
         /* check */
         HttpServletResponse response = (HttpServletResponse) nativeWebRequest.getNativeResponse(HttpServletResponse.class);
         Assert.state(response != null, "No HttpServletResponse");
