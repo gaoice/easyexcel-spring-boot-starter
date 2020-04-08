@@ -59,8 +59,8 @@ public class ExcelDownloadController {
         /* 通过 ExcelFile 自定义下载的文件名，放入多个 sheet */
         ExcelFile excelFile = new ExcelFile();
         excelFile.setFileName("ExcelFile可以自定义文件名和放入多个sheet");
-        excelFile.putSheet(sheetInfo1);
-        excelFile.putSheet(sheetInfo2);
+        excelFile.addSheet(sheetInfo1);
+        excelFile.addSheet(sheetInfo2);
 
         return excelFile;
     }

@@ -11,11 +11,20 @@ public class ExcelFile {
     private String fileName;
     private List<SheetInfo> sheetInfoList;
 
-    public void putSheet(SheetInfo sheetInfo) {
+    public void addSheet(SheetInfo sheetInfo) {
         if (sheetInfoList == null) {
             sheetInfoList = new ArrayList<SheetInfo>();
         }
         sheetInfoList.add(sheetInfo);
+    }
+
+    /**
+     * rename function
+     * replaced by <code>ExcelFile.addSheet(SheetInfo sheetInfo)</code>
+     */
+    @Deprecated
+    public void putSheet(SheetInfo sheetInfo) {
+        addSheet(sheetInfo);
     }
 
     public String getFileSuffix() {
