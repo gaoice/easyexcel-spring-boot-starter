@@ -7,6 +7,8 @@
 
 ## 使用
 
+已提交至 `Maven` 中央仓库。
+
 `Maven`
 
 ```xml
@@ -16,16 +18,6 @@
     <version>1.0</version>
 </dependency>
 ```
-
-
-
-`releases`
-
-[easyexcel](https://github.com/gaoice/easyexcel/releases)
-
-[easyexcel-spring-boot-starter](https://github.com/gaoice/easyexcel-spring-boot-starter/releases)
-
-在项目中添加以上两个 jar 包。
 
 
 
