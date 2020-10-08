@@ -15,9 +15,15 @@
 <dependency>
     <groupId>com.gaoice</groupId>
     <artifactId>easyexcel-spring-boot-starter</artifactId>
-    <version>1.0</version>
+    <version>1.1</version>
 </dependency>
 ```
+
+
+
+## 新版本
+
+- v 1.1，支持 `List<Map<?,?>>` 类型。
 
 
 
