@@ -32,7 +32,7 @@ public class ExcelDownloadController {
         String sheetName = "人物角色列表";
         String[] columnNames = {"角色名", "书名", "作者"};
         String[] classFieldNames = {"name", "book.name", "book.author"};
-        List data = listCharacters();
+        List<Character> data = listCharacters();
         return new SheetInfo(sheetName, columnNames, classFieldNames, data);
     }
 
@@ -50,7 +50,7 @@ public class ExcelDownloadController {
         String sheetName = "人物角色列表";
         String[] columnNames = {"角色名", "书名", "作者"};
         String[] classFieldNames = {"name", "book.name", "book.author"};
-        List data = listCharacters();
+        List<Character> data = listCharacters();
         SheetInfo sheetInfo1 = new SheetInfo(sheetName, columnNames, classFieldNames, data);
 
         String sheetName2 = "第二个sheet";
@@ -79,8 +79,8 @@ public class ExcelDownloadController {
      * @return List
      */
     @RequestMapping("/list")
-    @ResponseExcel(classFieldNames = {"name", "book.name", "book.author"})
-    public List list() {
+    @ResponseExcel({"name", "book.name", "book.author"})
+    public List<Character> list() {
         return listCharacters();
     }
 
@@ -89,7 +89,7 @@ public class ExcelDownloadController {
      *
      * @return List
      */
-    private List listCharacters() {
+    private List<Character> listCharacters() {
         Book b1 = new Book();
         b1.setName("多情剑客无情剑");
         b1.setAuthor("古龙");

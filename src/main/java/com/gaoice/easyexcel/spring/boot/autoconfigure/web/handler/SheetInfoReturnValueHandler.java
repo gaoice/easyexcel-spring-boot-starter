@@ -16,25 +16,28 @@ import java.net.URLEncoder;
 
 /**
  * 处理 Spring MVC 框架 SheetInfo 类型的返回值，将其解析为文件下载
+ *
+ * @author gaoice
  */
 public class SheetInfoReturnValueHandler implements HandlerMethodReturnValueHandler {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SheetInfoReturnValueHandler.class);
 
+    @Override
     public boolean supportsReturnType(MethodParameter methodParameter) {
         Method m = methodParameter.getMethod();
-        return m != null
-                && SheetInfo.class.equals(m.getReturnType());
+        return m != null && SheetInfo.class.equals(m.getReturnType());
     }
 
-    public void handleReturnValue(Object o, MethodParameter methodParameter, ModelAndViewContainer mavContainer, NativeWebRequest nativeWebRequest) throws Exception {
+    @Override
+    public void handleReturnValue(Object returnValue, MethodParameter methodParameter, ModelAndViewContainer mavContainer, NativeWebRequest nativeWebRequest) throws Exception {
         /* check */
-        HttpServletResponse response = (HttpServletResponse) nativeWebRequest.getNativeResponse(HttpServletResponse.class);
+        HttpServletResponse response = nativeWebRequest.getNativeResponse(HttpServletResponse.class);
         Assert.state(response != null, "No HttpServletResponse");
         mavContainer.setRequestHandled(true);
 
         /* return value check */
-        SheetInfo sheetInfo = (SheetInfo) o;
+        SheetInfo sheetInfo = (SheetInfo) returnValue;
         if (sheetInfo == null) {
             String msg = "return value is null, can not build excel";
             LOGGER.warn(msg);
@@ -46,8 +49,8 @@ public class SheetInfoReturnValueHandler implements HandlerMethodReturnValueHand
 
         /* set response */
         response.setContentType("application/octet-stream;charset=utf-8");
-        response.setHeader("Content-Disposition"
-                , "attachment;filename="
+        response.setHeader("Content-Disposition",
+                "attachment;filename="
                         + URLEncoder.encode(sheetInfo.getSheetName(), "utf-8")
                         + ".xlsx");
         ExcelBuilder.writeOutputStream(sheetInfo, response.getOutputStream());

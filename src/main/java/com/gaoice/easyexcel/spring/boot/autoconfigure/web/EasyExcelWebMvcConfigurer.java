@@ -8,12 +8,16 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.List;
 
+/**
+ * @author gaoice
+ */
 public class EasyExcelWebMvcConfigurer implements WebMvcConfigurer {
 
     private boolean enableResponseExcel = true;
     private boolean enableExcelFile = true;
     private boolean enableSheetInfo = true;
 
+    @Override
     public void addReturnValueHandlers(List<HandlerMethodReturnValueHandler> handlers) {
         if (enableExcelFile) {
             handlers.add(new ExcelFileReturnValueHandler());

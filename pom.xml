@@ -5,7 +5,7 @@
 
     <groupId>com.gaoice</groupId>
     <artifactId>easyexcel-spring-boot-starter</artifactId>
-    <version>1.0</version>
+    <version>1.1</version>
     <packaging>jar</packaging>
 
     <name>easyexcel-spring-boot-starter</name>
@@ -50,7 +50,7 @@
         <maven.compiler.target>1.8</maven.compiler.target>
 
         <spring-boot.version>2.2.2.RELEASE</spring-boot.version>
-        <easyexcel.version>1.0</easyexcel.version>
+        <easyexcel.version>1.1</easyexcel.version>
     </properties>
 
     <dependencyManagement>

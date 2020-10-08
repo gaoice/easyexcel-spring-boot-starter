@@ -7,6 +7,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+/**
+ * @author gaoice
+ */
 @Configuration
 @EnableConfigurationProperties(EasyExcelAutoConfigure.class)
 @ConfigurationProperties("com.gaoice.easyexcel")

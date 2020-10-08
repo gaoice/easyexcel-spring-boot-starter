@@ -19,25 +19,29 @@ import java.util.List;
 
 /**
  * 处理 Spring MVC 框架函数带有 ResponseExcel 注解的返回值，将其解析为文件下载
+ *
+ * @author gaoice
  */
 public class ResponseExcelReturnValueHandler implements HandlerMethodReturnValueHandler {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ResponseExcelReturnValueHandler.class);
 
+    @Override
     public boolean supportsReturnType(MethodParameter methodParameter) {
         return methodParameter.getMethodAnnotation(ResponseExcel.class) != null;
     }
 
-    public void handleReturnValue(Object o, MethodParameter methodParameter, ModelAndViewContainer mavContainer, NativeWebRequest nativeWebRequest) throws Exception {
+    @Override
+    public void handleReturnValue(Object returnValue, MethodParameter methodParameter, ModelAndViewContainer mavContainer, NativeWebRequest nativeWebRequest) throws Exception {
         /* check */
-        HttpServletResponse response = (HttpServletResponse) nativeWebRequest.getNativeResponse(HttpServletResponse.class);
+        HttpServletResponse response = nativeWebRequest.getNativeResponse(HttpServletResponse.class);
         Assert.state(response != null, "No HttpServletResponse");
         ResponseExcel responseExcel = methodParameter.getMethodAnnotation(ResponseExcel.class);
         Assert.state(responseExcel != null, "No @ResponseExcel");
         mavContainer.setRequestHandled(true);
 
         /* return value check */
-        if (!(o instanceof List)) {
+        if (!(returnValue instanceof List)) {
             String msg = "return value is null or not support type, can not build excel";
             LOGGER.warn(msg);
             response.setContentType("text/html;charset=utf-8");
@@ -45,13 +49,13 @@ public class ResponseExcelReturnValueHandler implements HandlerMethodReturnValue
             response.getWriter().flush();
             return;
         }
-        List list = (List) o;
+        List<?> returnList = (List<?>) returnValue;
 
         /* ResponseExcel parameter check */
         String defaultString = "";
         String sheetName = responseExcel.sheetName();
-        String[] classFieldNames = responseExcel.classFieldNames();
-        if (defaultString.equals(sheetName) || classFieldNames.length == 0) {
+        String[] fieldNames = getFieldNames(responseExcel);
+        if (defaultString.equals(sheetName) || fieldNames.length == 0) {
             String msg = "not specify sheet name or fields, can not build excel";
             LOGGER.warn(msg);
             response.setContentType("text/html;charset=utf-8");
@@ -62,33 +66,35 @@ public class ResponseExcelReturnValueHandler implements HandlerMethodReturnValue
 
         /* set sheet info */
         String title = responseExcel.title();
-        String[] columnNames = responseExcel.columnNames().length == 0 ?
-                responseExcel.classFieldNames() : responseExcel.columnNames();
-        String fileName = responseExcel.fileName().equals(defaultString) ?
-                responseExcel.sheetName() : responseExcel.fileName();
+        String[] columnNames = responseExcel.columnNames().length == 0 ? fieldNames : responseExcel.columnNames();
+        String fileName = defaultString.equals(responseExcel.fileName()) ? responseExcel.sheetName() : responseExcel.fileName();
         String fileSuffix = responseExcel.fileSuffix();
-        SheetInfo sheetInfo;
-        if (defaultString.equals(title)) {
-            sheetInfo = new SheetInfo(sheetName, columnNames, classFieldNames, list);
-        } else {
-            sheetInfo = new SheetInfo(sheetName, title, columnNames, classFieldNames, list);
-        }
+        SheetInfo sheetInfo = new SheetInfo(sheetName, title, columnNames, fieldNames, returnList);
 
         /* set sheet style */
-        Class sheetStyleClass = responseExcel.sheetStyle();
-        if (sheetStyleClass != SheetStyle.class
-                && sheetStyleClass != DefaultSheetStyle.class) {
-            sheetInfo.setSheetStyle((SheetStyle) sheetStyleClass.newInstance());
+        Class<?> sheetStyleClass = responseExcel.sheetStyle();
+        if (sheetStyleClass != SheetStyle.class && sheetStyleClass != DefaultSheetStyle.class) {
+            sheetInfo.setSheetStyle((SheetStyle) sheetStyleClass.getDeclaredConstructor().newInstance());
         }
 
         /* set response */
         response.setContentType("application/octet-stream;charset=utf-8");
-        response.setHeader("Content-Disposition"
-                , "attachment;filename="
+        response.setHeader("Content-Disposition",
+                "attachment;filename="
                         + URLEncoder.encode(fileName, "utf-8")
                         + fileSuffix);
 
         ExcelBuilder.writeOutputStream(sheetInfo, response.getOutputStream());
         response.getOutputStream().flush();
+    }
+
+    private String[] getFieldNames(ResponseExcel responseExcel) {
+        if (responseExcel.value().length > 0) {
+            return responseExcel.value();
+        }
+        if (responseExcel.fieldNames().length > 0) {
+            return responseExcel.fieldNames();
+        }
+        return responseExcel.classFieldNames();
     }
 }

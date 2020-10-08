@@ -5,6 +5,9 @@ import com.gaoice.easyexcel.SheetInfo;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author gaoice
+ */
 public class ExcelFile {
 
     private String fileSuffix = ".xlsx";
@@ -13,7 +16,7 @@ public class ExcelFile {
 
     public void addSheet(SheetInfo sheetInfo) {
         if (sheetInfoList == null) {
-            sheetInfoList = new ArrayList<SheetInfo>();
+            sheetInfoList = new ArrayList<>();
         }
         sheetInfoList.add(sheetInfo);
     }
