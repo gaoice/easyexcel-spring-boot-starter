@@ -1,0 +1,19 @@
+{
+  "properties": [
+    {
+      "name": "com.gaoice.easyexcel.enable-sheet-info",
+      "type": "java.lang.String",
+      "description": "Description for com.gaoice.easyexcel.enable-sheet-info."
+    },
+    {
+      "name": "com.gaoice.easyexcel.enable-excel-file",
+      "type": "java.lang.String",
+      "description": "Description for com.gaoice.easyexcel.enable-excel-file."
+    },
+    {
+      "name": "com.gaoice.easyexcel.enable-response-excel",
+      "type": "java.lang.String",
+      "description": "Description for com.gaoice.easyexcel.enable-response-excel."
+    }
+  ]
+}

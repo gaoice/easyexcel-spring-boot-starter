@@ -3,6 +3,8 @@ package com.gaoice.easyexcel.spring.boot.autoconfigure.web;
 import com.gaoice.easyexcel.spring.boot.autoconfigure.web.handler.ExcelFileReturnValueHandler;
 import com.gaoice.easyexcel.spring.boot.autoconfigure.web.handler.ResponseExcelReturnValueHandler;
 import com.gaoice.easyexcel.spring.boot.autoconfigure.web.handler.SheetInfoReturnValueHandler;
+import com.gaoice.easyexcel.spring.boot.autoconfigure.web.resolver.RequestExcelArgumentResolver;
+import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.HandlerMethodReturnValueHandler;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -28,6 +30,11 @@ public class EasyExcelWebMvcConfigurer implements WebMvcConfigurer {
         if (enableResponseExcel) {
             handlers.add(new ResponseExcelReturnValueHandler());
         }
+    }
+
+    @Override
+    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
+        resolvers.add(new RequestExcelArgumentResolver());
     }
 
     public boolean isEnableResponseExcel() {

@@ -1,10 +1,10 @@
 package com.gaoice.easyexcel.spring.boot.autoconfigure.web.handler;
 
-import com.gaoice.easyexcel.ExcelBuilder;
-import com.gaoice.easyexcel.SheetInfo;
 import com.gaoice.easyexcel.spring.boot.autoconfigure.annotation.ResponseExcel;
-import com.gaoice.easyexcel.style.DefaultSheetStyle;
-import com.gaoice.easyexcel.style.SheetStyle;
+import com.gaoice.easyexcel.writer.ExcelWriter;
+import com.gaoice.easyexcel.writer.SheetInfo;
+import com.gaoice.easyexcel.writer.style.DefaultSheetStyle;
+import com.gaoice.easyexcel.writer.style.SheetStyle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.MethodParameter;
@@ -71,6 +71,11 @@ public class ResponseExcelReturnValueHandler implements HandlerMethodReturnValue
         String fileSuffix = responseExcel.fileSuffix();
         SheetInfo sheetInfo = new SheetInfo(sheetName, title, columnNames, fieldNames, returnList);
 
+        ResponseExcel.Node[] map = responseExcel.map();
+        for (ResponseExcel.Node node : map) {
+            sheetInfo.putFieldHandler(node.key(), node.value().getDeclaredConstructor().newInstance());
+        }
+
         /* set sheet style */
         Class<?> sheetStyleClass = responseExcel.sheetStyle();
         if (sheetStyleClass != SheetStyle.class && sheetStyleClass != DefaultSheetStyle.class) {
@@ -84,7 +89,7 @@ public class ResponseExcelReturnValueHandler implements HandlerMethodReturnValue
                         + URLEncoder.encode(fileName, "utf-8")
                         + fileSuffix);
 
-        ExcelBuilder.writeOutputStream(sheetInfo, response.getOutputStream());
+        ExcelWriter.writeOutputStream(sheetInfo, response.getOutputStream());
         response.getOutputStream().flush();
     }
 

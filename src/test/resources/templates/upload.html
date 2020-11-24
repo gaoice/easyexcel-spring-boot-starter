@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>使用示例</title>
+</head>
+<body style="padding-left: 100px">
+<h2>@RequestExcel 使用示例</h2>
+<a href="/test/template" style="color: chocolate">下载模板</a>
+<br/><br/><br/>
+<h3>/test/upload1：解析为 Map 集合</h3>
+<form action="/test/upload1" method="post" enctype="multipart/form-data">
+    <input type="file" name="excel"/>
+    <button type="submit" class="btn btn-info">上传</button>
+</form>
+<br/><br/><br/>
+<h3>/test/upload2：解析为实体类集合</h3>
+<form action="/test/upload2" method="post" enctype="multipart/form-data">
+    <input type="file" name="excel"/>
+    <button type="submit" class="btn btn-info">上传</button>
+</form>
+<br/><br/><br/>
+<h3>/test/upload3：解析为实体类集合并使用CellConverter转换性别列</h3>
+<form action="/test/upload3" method="post" enctype="multipart/form-data">
+    <input type="file" name="excel"/>
+    <button type="submit" class="btn btn-info">上传</button>
+</form>
+</body>
+</html>

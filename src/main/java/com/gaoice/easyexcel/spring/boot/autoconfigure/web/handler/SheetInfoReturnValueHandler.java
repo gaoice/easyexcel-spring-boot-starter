@@ -1,7 +1,7 @@
 package com.gaoice.easyexcel.spring.boot.autoconfigure.web.handler;
 
-import com.gaoice.easyexcel.ExcelBuilder;
-import com.gaoice.easyexcel.SheetInfo;
+import com.gaoice.easyexcel.writer.ExcelWriter;
+import com.gaoice.easyexcel.writer.SheetInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.MethodParameter;
@@ -53,7 +53,7 @@ public class SheetInfoReturnValueHandler implements HandlerMethodReturnValueHand
                 "attachment;filename="
                         + URLEncoder.encode(sheetInfo.getSheetName(), "utf-8")
                         + ".xlsx");
-        ExcelBuilder.writeOutputStream(sheetInfo, response.getOutputStream());
+        ExcelWriter.writeOutputStream(sheetInfo, response.getOutputStream());
         response.getOutputStream().flush();
     }
 }

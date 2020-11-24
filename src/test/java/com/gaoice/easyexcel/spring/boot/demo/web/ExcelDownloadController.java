@@ -1,10 +1,12 @@
 package com.gaoice.easyexcel.spring.boot.demo.web;
 
-import com.gaoice.easyexcel.SheetInfo;
 import com.gaoice.easyexcel.spring.boot.autoconfigure.ExcelFile;
 import com.gaoice.easyexcel.spring.boot.autoconfigure.annotation.ResponseExcel;
 import com.gaoice.easyexcel.spring.boot.demo.model.Book;
 import com.gaoice.easyexcel.spring.boot.demo.model.Character;
+import com.gaoice.easyexcel.spring.boot.demo.model.GenderEnum;
+import com.gaoice.easyexcel.writer.SheetInfo;
+import com.gaoice.easyexcel.writer.handler.FieldValueConverter;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -85,6 +87,24 @@ public class ExcelDownloadController {
     }
 
     /**
+     * 在注解中为指定字段设置处理器
+     */
+    @RequestMapping("/template")
+    @ResponseExcel(value = {"name", "gender", "book.name", "book.author"},
+            map = {@ResponseExcel.Node(key = "gender", value = GenderConverter.class)},
+            fileName = "上传模板")
+    public List<Character> template() {
+        return listCharacters();
+    }
+
+    public static class GenderConverter implements FieldValueConverter<GenderEnum> {
+        @Override
+        public Object convert(GenderEnum value) {
+            return value == null ? null : value.equals(GenderEnum.MALE) ? "男性角色" : value.equals(GenderEnum.FEMALE) ? "女性角色" : "其他角色";
+        }
+    }
+
+    /**
      * 生成测试数据
      *
      * @return List
@@ -95,12 +115,15 @@ public class ExcelDownloadController {
         b1.setAuthor("古龙");
         Character c1 = new Character();
         c1.setName("李寻欢");
+        c1.setGender(GenderEnum.MALE);
         c1.setBook(b1);
         Character c2 = new Character();
         c2.setName("林诗音");
+        c2.setGender(GenderEnum.FEMALE);
         c2.setBook(b1);
         Character c3 = new Character();
         c3.setName("林仙儿");
+        c3.setGender(GenderEnum.FEMALE);
         c3.setBook(b1);
 
         Book b2 = new Book();
@@ -108,9 +131,11 @@ public class ExcelDownloadController {
         b2.setAuthor("乔治·奥威尔");
         Character c4 = new Character();
         c4.setName("雪球");
+        c4.setGender(GenderEnum.UNKNOWN);
         c4.setBook(b2);
         Character c5 = new Character();
         c5.setName("拳师");
+        c5.setGender(GenderEnum.UNKNOWN);
         c5.setBook(b2);
 
         List<Character> list = new ArrayList<Character>();

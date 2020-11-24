@@ -1,7 +1,8 @@
 package com.gaoice.easyexcel.spring.boot.autoconfigure.annotation;
 
-import com.gaoice.easyexcel.style.DefaultSheetStyle;
-import com.gaoice.easyexcel.style.SheetStyle;
+import com.gaoice.easyexcel.writer.handler.FieldHandler;
+import com.gaoice.easyexcel.writer.style.DefaultSheetStyle;
+import com.gaoice.easyexcel.writer.style.SheetStyle;
 
 import java.lang.annotation.*;
 
@@ -51,4 +52,15 @@ public @interface ResponseExcel {
     String fileName() default "";
 
     String fileSuffix() default ".xlsx";
+
+    /**
+     * fieldName 和 FieldHandler 的映射关系
+     */
+    Node[] map() default {};
+
+    @interface Node {
+        String key();
+
+        Class<? extends FieldHandler<?>> value();
+    }
 }

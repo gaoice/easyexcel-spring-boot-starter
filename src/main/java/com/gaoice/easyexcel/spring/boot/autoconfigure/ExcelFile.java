@@ -1,6 +1,6 @@
 package com.gaoice.easyexcel.spring.boot.autoconfigure;
 
-import com.gaoice.easyexcel.SheetInfo;
+import com.gaoice.easyexcel.writer.SheetInfo;
 
 import java.util.ArrayList;
 import java.util.List;
