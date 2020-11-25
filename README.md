@@ -1,11 +1,35 @@
 # Easyexcel Spring Boot Starter
 ## 概述
 
-在 Controller 中使用 `@RequestExcel` 和 `@ResponseExcel` 注解轻松上传/下载 Excel 文件。
+在 Spring Boot 中使用 `@RequestExcel` 和 `@ResponseExcel` 注解轻松上传和下载 Excel 文件。
 
 
 
 ## 使用
+
+下载示例，类似于 `@ResponseBody` ：
+
+```java
+@RequestMapping("/download")
+@ResponseExcel({"name", "book.name", "book.author"})
+public List<Character> download() {
+    return listCharacters();
+}
+```
+
+上传示例，类似于 `@RequestParam` ：
+
+```java
+@RequestMapping("/upload")
+@ResponseBody
+public List<Character> upload(@RequestExcel(value = "excel", targetClass = Character.class, 
+                                    		fieldNames = {"name", "book.name", "book.author"}) 
+                      		  List<Character> characters) {
+    return characters;
+}
+```
+
+
 
 已提交至 `Maven` 中央仓库。
 
@@ -15,7 +39,7 @@
 <dependency>
     <groupId>com.gaoice</groupId>
     <artifactId>easyexcel-spring-boot-starter</artifactId>
-    <version>1.1</version>
+    <version>2.0</version>
 </dependency>
 ```
 
@@ -24,16 +48,6 @@
 ## 新版本
 
 - v 2.0，新增 `@RequestExcel` 注解。
-
-
-
-## 配置
-
-```properties
-com.gaoice.easyexcel.enable-excel-file=true # 是否解析 ExcelFile 类型的返回值为文件下载
-com.gaoice.easyexcel.enable-sheet-info=true # 是否解析 SheetInfo 类型的返回值为文件下载
-com.gaoice.easyexcel.enable-response-excel=true # 是否解析带有 @ResponseExcel 注解的函数的返回值为文件下载
-```
 
 
 
