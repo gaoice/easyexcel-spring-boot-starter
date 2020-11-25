@@ -52,9 +52,9 @@ public class ExcelUploadController {
      */
     @PostMapping("/upload3")
     @ResponseBody
-    public List<?> upload3(@RequestExcel(value = "excel",
-            fieldNames = {"name", "gender", "book.name", "book.author"},
+    public List<Character> upload3(@RequestExcel(value = "excel",
             targetClass = Character.class,
+            fieldNames = {"name", "gender", "book.name", "book.author"},
             map = {@RequestExcel.Node(key = "gender", value = GenderCellConverter.class)}) List<Character> characters) {
         return characters;
     }

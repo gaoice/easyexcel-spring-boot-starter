@@ -91,6 +91,7 @@ public class ExcelDownloadController {
      */
     @RequestMapping("/template")
     @ResponseExcel(value = {"name", "gender", "book.name", "book.author"},
+            columnNames = {"角色姓名", "角色性别", "书名", "作者"},
             map = {@ResponseExcel.Node(key = "gender", value = GenderConverter.class)},
             fileName = "上传模板")
     public List<Character> template() {
