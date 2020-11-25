@@ -45,7 +45,7 @@ public @interface RequestExcel {
     Class<?> targetClass() default Map.class;
 
     /**
-     * List<Map<?,?>> 类型不需要填写
+     * List 的元素类型为 Map 或其子类，则不需要 fieldNames
      */
     String[] fieldNames() default {};
 
