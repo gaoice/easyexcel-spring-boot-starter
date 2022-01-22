@@ -39,7 +39,7 @@ public List<Character> upload(@RequestExcel(value = "excel", targetClass = Chara
 <dependency>
     <groupId>com.gaoice</groupId>
     <artifactId>easyexcel-spring-boot-starter</artifactId>
-    <version>2.0</version>
+    <version>2.1</version>
 </dependency>
 ```
 
@@ -47,6 +47,8 @@ public List<Character> upload(@RequestExcel(value = "excel", targetClass = Chara
 
 ## 新版本
 
+- v 2.1，提升 `@ResponseExcel` 注解优先级，现在可以在 `@RestController` 中使用 `@ResponseExcel` 注解。
+  
 - v 2.0，新增 `@RequestExcel` 注解。
 
 
