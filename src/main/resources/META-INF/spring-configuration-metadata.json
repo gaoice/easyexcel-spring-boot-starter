@@ -2,18 +2,23 @@
   "properties": [
     {
       "name": "com.gaoice.easyexcel.enable-sheet-info",
-      "type": "java.lang.String",
+      "type": "java.lang.Boolean",
       "description": "Whether to enable SheetInfoReturnValueHandler."
     },
     {
       "name": "com.gaoice.easyexcel.enable-excel-file",
-      "type": "java.lang.String",
+      "type": "java.lang.Boolean",
       "description": "Whether to enable ExcelFileReturnValueHandler."
     },
     {
       "name": "com.gaoice.easyexcel.enable-response-excel",
-      "type": "java.lang.String",
+      "type": "java.lang.Boolean",
       "description": "Whether to enable ResponseExcelReturnValueHandler."
+    },
+    {
+      "name": "com.gaoice.easyexcel.high-priority",
+      "type": "java.lang.Boolean",
+      "description": "Whether have high priority over @RestController or @RequestBody."
     }
   ]
 }

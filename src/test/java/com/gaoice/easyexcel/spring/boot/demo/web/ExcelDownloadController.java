@@ -7,28 +7,27 @@ import com.gaoice.easyexcel.spring.boot.demo.model.Character;
 import com.gaoice.easyexcel.spring.boot.demo.model.GenderEnum;
 import com.gaoice.easyexcel.writer.SheetInfo;
 import com.gaoice.easyexcel.writer.handler.FieldValueConverter;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 在 Controller 上使用 @RestController 或者 @ResponseBody 会导致 starter 失效
+ * @since 2.1 ，在 high-priority=true 的情况（即默认配置）下，
+ * 对 SheetInfo、ExcelFile、 @ResponseExcel 处理的优先级高于 Spring MVC 的 @RestController @ResponseBody 等相关注解
  */
-@Controller
+@RestController
 @RequestMapping("/test")
 public class ExcelDownloadController {
 
     /**
      * 文件名默认使用 sheetName
-     * 生效条件：
-     * enable-sheet-info=true
-     * 返回值类型为 SheetInfo
-     * 不使用 @ResponseBody 注解
      *
      * @return SheetInfo
      */
+    @ResponseBody
     @RequestMapping("/sheetInfo")
     public SheetInfo sheetInfo() {
         String sheetName = "人物角色列表";
@@ -39,11 +38,6 @@ public class ExcelDownloadController {
     }
 
     /**
-     * 生效条件：
-     * enable-excel-file=true
-     * 返回值类型为 ExcelFile
-     * 不使用 @ResponseBody 注解
-     *
      * @return ExcelFile
      */
     @RequestMapping("/excelFile")
@@ -73,10 +67,6 @@ public class ExcelDownloadController {
      * fileName 默认使用 sheetName 的值
      * columnNames 默认使用 classFieldNames 的值
      * sheetStyle 可以指定样式，默认为 DefaultSheetStyle.class
-     * 生效条件：
-     * enable-response-excel=true
-     * 使用 @ResponseExcel 注解
-     * 不使用 @ResponseBody 注解
      *
      * @return List
      */

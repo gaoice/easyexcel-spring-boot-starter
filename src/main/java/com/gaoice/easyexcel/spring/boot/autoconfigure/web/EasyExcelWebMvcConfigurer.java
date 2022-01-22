@@ -1,8 +1,6 @@
 package com.gaoice.easyexcel.spring.boot.autoconfigure.web;
 
-import com.gaoice.easyexcel.spring.boot.autoconfigure.web.handler.ExcelFileReturnValueHandler;
-import com.gaoice.easyexcel.spring.boot.autoconfigure.web.handler.ResponseExcelReturnValueHandler;
-import com.gaoice.easyexcel.spring.boot.autoconfigure.web.handler.SheetInfoReturnValueHandler;
+import com.gaoice.easyexcel.spring.boot.autoconfigure.EasyExcelAutoConfigure;
 import com.gaoice.easyexcel.spring.boot.autoconfigure.web.resolver.RequestExcelArgumentResolver;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.HandlerMethodReturnValueHandler;
@@ -15,52 +13,23 @@ import java.util.List;
  */
 public class EasyExcelWebMvcConfigurer implements WebMvcConfigurer {
 
-    private boolean enableResponseExcel = true;
-    private boolean enableExcelFile = true;
-    private boolean enableSheetInfo = true;
+    private final EasyExcelAutoConfigure easyExcelAutoConfigure;
+
+    public EasyExcelWebMvcConfigurer(EasyExcelAutoConfigure easyExcelAutoConfigure) {
+        this.easyExcelAutoConfigure = easyExcelAutoConfigure;
+    }
 
     @Override
     public void addReturnValueHandlers(List<HandlerMethodReturnValueHandler> handlers) {
-        if (enableExcelFile) {
-            handlers.add(new ExcelFileReturnValueHandler());
+        if (easyExcelAutoConfigure.isHighPriority()) {
+            return;
         }
-        if (enableSheetInfo) {
-            handlers.add(new SheetInfoReturnValueHandler());
-        }
-        if (enableResponseExcel) {
-            handlers.add(new ResponseExcelReturnValueHandler());
-        }
+        handlers.addAll(easyExcelAutoConfigure.handlers());
     }
+
 
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
         resolvers.add(new RequestExcelArgumentResolver());
-    }
-
-    public boolean isEnableResponseExcel() {
-        return enableResponseExcel;
-    }
-
-    public EasyExcelWebMvcConfigurer setEnableResponseExcel(boolean enableResponseExcel) {
-        this.enableResponseExcel = enableResponseExcel;
-        return this;
-    }
-
-    public boolean isEnableExcelFile() {
-        return enableExcelFile;
-    }
-
-    public EasyExcelWebMvcConfigurer setEnableExcelFile(boolean enableExcelFile) {
-        this.enableExcelFile = enableExcelFile;
-        return this;
-    }
-
-    public boolean isEnableSheetInfo() {
-        return enableSheetInfo;
-    }
-
-    public EasyExcelWebMvcConfigurer setEnableSheetInfo(boolean enableSheetInfo) {
-        this.enableSheetInfo = enableSheetInfo;
-        return this;
     }
 }
