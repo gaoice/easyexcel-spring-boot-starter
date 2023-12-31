@@ -1,6 +1,7 @@
 package com.gaoice.easyexcel.spring.boot.autoconfigure.web;
 
 import com.gaoice.easyexcel.spring.boot.autoconfigure.EasyExcelAutoConfigure;
+import jakarta.annotation.PostConstruct;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -8,7 +9,6 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.web.method.support.HandlerMethodReturnValueHandler;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 
-import javax.annotation.PostConstruct;
 import java.util.List;
 
 /**

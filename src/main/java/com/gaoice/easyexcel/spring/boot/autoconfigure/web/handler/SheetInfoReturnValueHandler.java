@@ -2,6 +2,7 @@ package com.gaoice.easyexcel.spring.boot.autoconfigure.web.handler;
 
 import com.gaoice.easyexcel.writer.ExcelWriter;
 import com.gaoice.easyexcel.writer.SheetInfo;
+import jakarta.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.MethodParameter;
@@ -10,7 +11,6 @@ import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodReturnValueHandler;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
-import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.Method;
 import java.net.URLEncoder;
 

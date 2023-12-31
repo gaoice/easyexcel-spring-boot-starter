@@ -5,6 +5,7 @@ import com.gaoice.easyexcel.writer.ExcelWriter;
 import com.gaoice.easyexcel.writer.SheetInfo;
 import com.gaoice.easyexcel.writer.style.DefaultSheetStyle;
 import com.gaoice.easyexcel.writer.style.SheetStyle;
+import jakarta.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.MethodParameter;
@@ -13,7 +14,6 @@ import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodReturnValueHandler;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
-import javax.servlet.http.HttpServletResponse;
 import java.net.URLEncoder;
 import java.util.List;
 
